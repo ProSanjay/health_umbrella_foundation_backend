@@ -23,7 +23,11 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("home/", include("home.urls")),
     path("", RedirectView.as_view(url="/home/", permanent=True)),
+    path("disease/", include("disease.urls")),
     path("footer/", include("footer.urls")),
+    path("ejournal/", include("ejournal.urls")),
+    path("feedback/", include("feedback.urls")),
+    path("pathy/", include("pathy.urls")),
 ]
 
 if settings.DEBUG:

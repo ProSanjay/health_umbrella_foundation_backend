@@ -1,29 +1,12 @@
 from django.db import models
 from simple_history.models import HistoricalRecords
 
-
-class testimonial_table(models.Model):
-    heading = models.CharField(max_length=100)
-    text = models.TextField(max_length=1000)
-    name = models.CharField(max_length=50)
-    location = models.CharField(max_length=100)
-    show = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
-    history = HistoricalRecords()
-
-    class Meta:
-        ordering = ["-created_at"]  # ordered by decending timestamp
-
-    def __str__(self):
-        return self.heading
-
-
-class video_table(models.Model):
-    heading = models.CharField(max_length=50)
-    image = models.ImageField(upload_to="video_table_images/")
-    ytplaylist_link = models.URLField(max_length=300)
+class ejournal_table(models.Model):
+    name = models.CharField(max_length=1000)
+    file = models.FileField(upload_to="ejournal_docs/files/")
+    image = models.ImageField(upload_to="ejournal_docs/cover_images/")
     show = models.BooleanField(default=True)
+    publish_date = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
@@ -32,12 +15,26 @@ class video_table(models.Model):
         ordering = ["-created_at"]  # ordered by decending timestamp
 
     def __str__(self):
-        return self.heading
+        return self.name
+
+
+class subscription_table(models.Model):
+    email_address = models.EmailField()
+    send = models.BooleanField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    history = HistoricalRecords()
+
+    class Meta:
+        ordering = ["-created_at"]  # ordered by decending timestamp
+
+    def __str__(self):
+        return self.email_address
 
 
 class key_value_table(models.Model):
-    key = models.CharField(max_length=100)
-    value = models.TextField(max_length=1000)
+    key = models.CharField(max_length=1000)
+    value = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
